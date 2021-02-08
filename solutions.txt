@@ -1,0 +1,19 @@
+The reason why only one JSON structure is being written to the file or being printed is because the program
+will only write when timestamps reach the threshold. Once this happens to one of the streams, it
+will be the one to stop and write/print, and the others will not write/print anything because now that the stream
+has stopped, it cant test the delta of any new timstamps to reach the break out condition.
+
+Image: 3 streams, one of them is getting tweets quickly and the other two get them very, very rarly, then, the other two will
+never write to file nor print their contents.
+
+Possible Solutions:
+    (First. Least efficient.)
+        Everytime a tweet comes in from any one of the streams, update all of the json objects, whether they have a tweet or not.
+        So you will increment the mentions for that one and not the others. When all of the iterations have completed, write all of 
+        the objects to their files. This means you will have to have code to update each object and write to each file in each of the
+        streams. This will mean a lot of repeated code and a lot of unecessary operations, but this is simply the first solution. Find
+        and more efficient one.
+    
+    (Second. More efficient.)
+        Have the program in two sections, one collects the data via a stream and the other is a setInterval portion that appends the data
+        to the cooresponding area after a fixed time (delta t) and at the end writes it to the files.

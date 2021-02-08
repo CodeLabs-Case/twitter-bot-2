@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+        "target": "ESNext", // This is the type of JavaScript that the TypeScript will transcompile to
+        "watch": true, // This will retranscompile the code everytime the TypeScript file is saved
+        "lib": [ "DOM", "ES2017"] // This will allow automatic typings for web development
+    }
+}

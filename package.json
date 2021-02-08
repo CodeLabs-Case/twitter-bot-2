@@ -1,0 +1,21 @@
+{
+  "name": "project5twitter2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "start": "node bot.js || true",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "ajax": "0.0.4",
+    "canvasjs": "^1.8.3",
+    "lodash": "^4.17.19",
+    "twit": "^2.2.11",
+    "twitter-stream-channels": "^1.0.1"
+  }
+}

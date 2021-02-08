@@ -1,0 +1,4 @@
+Outline:
+
+Notes:
+    Needs to be automated more in the form of passing in command line arguments to set up configurations for the data collection run.

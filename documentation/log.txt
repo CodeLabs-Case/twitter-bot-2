@@ -1,0 +1,21 @@
+This is a log file that shows what the current tasks are for the website that are outlined by the project manager or the client.
+The three categories are "Waiting On", "Working On" and "Completed".
+
+"Waiting On"
+  This category comes from the UML diagrams that are the previous stage of planning for the project.
+  The UML diagrams outline what is needed in the project and it is from that which you pull tasks from.
+"Working On"
+  This category lists the tasks that are currently being worked on.
+  You pull tasks from the "Waiting On" category into here and then start working to complete them.
+"Completed"
+  This category lists all of the completed tasks in the order in which they are completed.
+  This section acts as the log and gives the outline of how the project has changed over time.
+  Git also tracks changes over time of course, however this file acts as a todo list as well as a mediator between the UML.
+
+Working On:
+
+Waiting On:
+
+Completed:
+  
+Notes:
