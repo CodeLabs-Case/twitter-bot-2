@@ -16,4 +16,4 @@ Possible Solutions:
     
     (Second. More efficient.)
         Have the program in two sections, one collects the data via a stream and the other is a setInterval portion that appends the data
-        to the cooresponding area after a fixed time (delta t) and at the end writes it to the files.
+        to the cooresponding array after a fixed time (delta t) and at the end writes it to the files.
