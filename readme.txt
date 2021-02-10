@@ -20,13 +20,3 @@ so store the data elsewhere or it will be over-written.
 // How To Modify
 In order to set more detailed configurations, you will have to modify the source code in "./bot.ts".
 [file number] is an arbitrary number of your choosing to save the data into.
-
-
-
-// IMPORTANT
-This bot only operates under the assumption that there will be frequent data coming into at least one of the channels/streams, 
-because the timestamps are updated only when a tweet comes in and thus all of the operations that depend on the timestamps,
-which are all operations lol, will not happen if there are no new tweets coming in and updating the timestamps for the intervals.
-
-I may not have the time to finish the multi-channel, version 2, of the bot because I will have business elsewhere. I am confident
-that I could finish it just from looking at the solution in psuedocode, so I will get it implemented in time.
