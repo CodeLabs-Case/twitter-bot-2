@@ -1,4 +1,4 @@
-// Is part of a data collection and visualization project
+// Is part of a data collection and visualization project.
 
 // Overview of how the API works.
 
@@ -19,26 +19,26 @@
 // ... a tweet containing the data collected.
 
 // Use the config file for authentication.
-var config = require('./config');
+var config = require('./config')
 // Pull in the package
-var twit = require('twit');
+var twit = require('twit')
 // Instantiate the packeage.
-var T = new twit(config);
+var T = new twit(config)
 // For saving data from Twitter, I will be using the navtive module fs.
-var fs = require('fs');
+var fs = require('fs')
 // This is the default way to read from a file, require it, but this will open it only once, so only good at the start
 // of the operations for reading in data and then moving on.
 // You could require it again later, but there is a better way.
 //var file = require('./data.json')
 
 // This is a new package that will allow you to run multiple streams at the same time which is amazing.
-var TwitterStreamChannels = require('twitter-stream-channels');
-var client = new TwitterStreamChannels(config);
+var TwitterStreamChannels = require('twitter-stream-channels')
+var client = new TwitterStreamChannels(config)
 
 interface channel {
-    "topic1" : Array<String>;
-    "topic2" : Array<String>;
-    "topic3" : Array<String>;
+    "topic1" : Array<String>
+    "topic2" : Array<String>
+    "topic3" : Array<String>
   }
 var channels :  channel = {
 	"topic1" : [],
@@ -71,9 +71,9 @@ var file2 = './data/channel2data.json'
 var file3 = './data/channel3data.json'
 
 // Using date to calculate time intervals
-var dateStart1: any = new Date();
-var dateStart2: any = new Date();
-var dateStart3: any = new Date();
+var dateStart1: any = new Date()
+var dateStart2: any = new Date()
+var dateStart3: any = new Date()
 
 
 
@@ -197,6 +197,7 @@ var intervalID = setInterval(()=>{
         convertToPlot(channel3json.dataSet, channel3json.plotSet)
         console.log(channel3json.plotSet)
 
+        // You will convert the plot JSON object into a String so that it can be written to a file; the technical term is: serialization.
         let jsonString1B = JSON.stringify(channel1json.plotSet, null, 2)
         let jsonString2B = JSON.stringify(channel2json.plotSet, null, 2)
         let jsonString3B = JSON.stringify(channel3json.plotSet, null, 2)
@@ -238,11 +239,11 @@ var intervalID = setInterval(()=>{
 
 
 //// STREAMING SECTION
-channel1json.data.start = getTimestamp(timestampSet);
-channel2json.data.start = getTimestamp(timestampSet);
-channel3json.data.start = getTimestamp(timestampSet);
+channel1json.data.start = getTimestamp(timestampSet)
+channel2json.data.start = getTimestamp(timestampSet)
+channel3json.data.start = getTimestamp(timestampSet)
 
-var stream = client.streamChannels({track:channels});
+var stream = client.streamChannels({track:channels})
 // CHANNEL 1 - STREAM
 // Start the stream
 stream.on('channels/topic1', (tweet) => {
@@ -252,7 +253,7 @@ stream.on('channels/topic1', (tweet) => {
     console.log('Name: ' + tweet.user.screen_name)
     console.log('Mentions: ' + channel1json.data.count)
     console.log(channel1json.data.end = getTimestamp(timestampSet))
-});
+})
 //*/
 
 // CHANNEL 2 - STREAM
@@ -264,7 +265,7 @@ stream.on('channels/topic2', (tweet)=>{
     console.log('Name: ' + tweet.user.screen_name)
     console.log('Mentions: ' + channel2json.data.count)
     console.log(channel2json.data.end = getTimestamp(timestampSet))
-});
+})
 //*/
 
 // CHANNEL 3 - STREAM
@@ -276,7 +277,7 @@ stream.on('channels/topic3', (tweet) => {
     console.log('Name: ' + tweet.user.screen_name)
     console.log('Mentions: ' + channel3json.data.count)
     console.log(channel3json.data.end = getTimestamp(timestampSet))
-});
+})
 //*/
 
 
@@ -287,24 +288,24 @@ stream.on('channels/topic3', (tweet) => {
 ///*
 function tweetData(filepath) {
     // Read in the data from the file.
-    var contents = fs.readFileSync(filepath);
-    var jsonContent = JSON.parse(contents);
+    var contents = fs.readFileSync(filepath)
+    var jsonContent = JSON.parse(contents)
 
     var tweet = {
-        status: 'Tesla and SpaceX mentions @ [ ' + jsonContent.start + ', ' + jsonContent.end + ' ]: ' + jsonContent.count +
+        status: 'Mentions @ [ ' + jsonContent.start + ', ' + jsonContent.end + ' ]: ' + jsonContent.count +
         '\n\n\nCourtesy of a friendly Twitter bot.'
     }
 
     // status updates are just tweets
-    T.post('statuses/update', tweet, (tweeted));
+    T.post('statuses/update', tweet, (tweeted))
 
     // This is a callback function, a function passed to another function and called within it, that
     // reports the status of the main function call
     function tweeted(err, data, response) {
         if(err) {
-            console.log('Unsuccessful!');
+            console.log('Unsuccessful!')
         }else{
-            console.log('Success!');
+            console.log('Success!')
         }
     }
 }
@@ -324,15 +325,15 @@ function tweetJSON(topic, jsonobject) {
     }
 
     // status updates are just tweets
-    T.post('statuses/update', tweet, (tweeted));
+    T.post('statuses/update', tweet, (tweeted))
 
     // This is a callback function, a function passed to another function and called within it, that
     // reports the status of the main function call
     function tweeted(err, data, response) {
         if(err) {
-            console.log('Unsuccessful!');
+            console.log('Unsuccessful!')
         }else{
-            console.log('Success!');
+            console.log('Success!')
         }
     }
 }
@@ -430,13 +431,13 @@ T.get('statuses/user_timeline', params, (error, tweets, response)=>{
 
 // function to return a timestamp 
 function getTimestamp(length){
-    const date = new Date();
-    var year: any = date.getFullYear();
-    var month: any = date.getMonth() +  1; // This returns 0 - January, 1 - February, ... so you will need to add 1
-    var day: any = date.getDate(); // getDate() gets the day of the month while getDay() gets the day of the week, 0 - Sunday, 1 - Monday
-    var hour: any = date.getHours();
-    var min: any = date.getMinutes();
-    var sec: any = date.getSeconds();
+    const date = new Date()
+    var year: any = date.getFullYear()
+    var month: any = date.getMonth() +  1 // This returns 0 - January, 1 - February, ... so you will need to add 1
+    var day: any = date.getDate() // getDate() gets the day of the month while getDay() gets the day of the week, 0 - Sunday, 1 - Monday
+    var hour: any = date.getHours()
+    var min: any = date.getMinutes()
+    var sec: any = date.getSeconds()
 
     // We need to manually add the digits for single digit values
     if(month < 10){ month = '0' + month }
@@ -460,7 +461,7 @@ function getTimestamp(length){
         timestamp = hour + ':' + min
     }
 
-    return timestamp;
+    return timestamp
 }
 
 
@@ -468,8 +469,9 @@ function getTimestamp(length){
 function convertToPlot(objIn, objOut){
     for (var i = 0; i < objIn.dataset.length; i++) {
 		objOut.dataset.push({
-			label: objIn.dataset[i].start,
+            title: objIn.dataset[i].trending,
+			x: objIn.dataset[i].start,
 			y: objIn.dataset[i].count
-		});
+		})
     }
 }

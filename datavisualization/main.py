@@ -26,7 +26,6 @@ f = open(path,)
 data = json.load(f)
 
 
-
 # Get the number of objects in the file and initialize the list size
 size = 0
 for i in data['dataset']:
@@ -38,11 +37,11 @@ axis_y = [None] * size
 counter = 0
 for i in data['dataset']: 
     # print(i)
-    axis_x[counter] = i["label"]
+    axis_x[counter] = i["x"]
     axis_y[counter] = i["y"]
     counter += 1
 
-# Close file 
+# Close file
 f.close()
 
 
@@ -54,6 +53,8 @@ plt.xticks(rotation=45)
 
 # Call the plot function
 plt.plot(axis_x, axis_y)
+# Give the plot the title that is in the plot json
+plt.title(data['dataset'][0]["title"])
 # Display the plot
 # plt.show()
 # Save the plot

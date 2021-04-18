@@ -1,4 +1,4 @@
-// Is part of a data collection and visualization project
+// Is part of a data collection and visualization project.
 // Overview of how the API works.
 /// There are three catagories for the kind of functionality that the API provides:
 // get() -> searching by: hashtag, location, user, etc.
@@ -161,6 +161,7 @@ var intervalID = setInterval(function () {
         console.log(channel2json.plotSet);
         convertToPlot(channel3json.dataSet, channel3json.plotSet);
         console.log(channel3json.plotSet);
+        // You will convert the plot JSON object into a String so that it can be written to a file; the technical term is: serialization.
         var jsonString1B = JSON.stringify(channel1json.plotSet, null, 2);
         var jsonString2B = JSON.stringify(channel2json.plotSet, null, 2);
         var jsonString3B = JSON.stringify(channel3json.plotSet, null, 2);
@@ -191,7 +192,7 @@ var intervalID = setInterval(function () {
         });
         // Exit out of the stream object
         stream.stop();
-        // Break out
+        // Exit out of the interval function
         clearInterval(intervalID);
     }
 }, delta * 60 * 1000);
@@ -241,7 +242,7 @@ function tweetData(filepath) {
     var contents = fs.readFileSync(filepath);
     var jsonContent = JSON.parse(contents);
     var tweet = {
-        status: 'Tesla and SpaceX mentions @ [ ' + jsonContent.start + ', ' + jsonContent.end + ' ]: ' + jsonContent.count +
+        status: 'Mentions @ [ ' + jsonContent.start + ', ' + jsonContent.end + ' ]: ' + jsonContent.count +
             '\n\n\nCourtesy of a friendly Twitter bot.'
     };
     // status updates are just tweets
@@ -401,7 +402,8 @@ function getTimestamp(length) {
 function convertToPlot(objIn, objOut) {
     for (var i = 0; i < objIn.dataset.length; i++) {
         objOut.dataset.push({
-            label: objIn.dataset[i].start,
+            title: objIn.dataset[i].trending,
+            x: objIn.dataset[i].start,
             y: objIn.dataset[i].count
         });
     }
