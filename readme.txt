@@ -16,8 +16,3 @@ The bot will produce n-1 number of data/datai.json and data/ploti.json files whe
 The bot will produce n-1 number of plots/... files as well.
 You will need to clear the data/ and plots/ directories for different runs,
 so store the data elsewhere or it will be over-written.
-
-
-
-// How To Modify
-In order to set more detailed configurations, you will have to modify the source code in "./bot.ts".
