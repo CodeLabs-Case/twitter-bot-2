@@ -48,8 +48,11 @@ var iter = 0;
 // End
 var max = n;
 var file1 = './data/channel1data.json';
+var file1csv = './data/channel1data.csv';
 var file2 = './data/channel2data.json';
+var file2csv = './data/channel2data.csv';
 var file3 = './data/channel3data.json';
+var file3csv = './data/channel3data.csv';
 // Using date to calculate time intervals
 var dateStart1 = new Date();
 var dateStart2 = new Date();
@@ -74,6 +77,7 @@ var channel2arrays = {
     plotArray: []
 };
 var channel2json = {
+    // This is the JSON data structure that will be updated, converted and then eventually written to the file
     data: { trending: channels.topic2, start: '', end: '', count: 0 },
     dataSet: { "dataset": channel2arrays.dataArray },
     plotSet: { "dataset": channel2arrays.plotArray }
@@ -85,6 +89,7 @@ var channel3arrays = {
     plotArray: []
 };
 var channel3json = {
+    // This is the JSON data structure that will be updated, converted and then eventually written to the file
     data: { trending: channels.topic3, start: '', end: '', count: 0 },
     dataSet: { "dataset": channel3arrays.dataArray },
     plotSet: { "dataset": channel3arrays.plotArray }
@@ -122,7 +127,6 @@ var intervalID = setInterval(function () {
     channel3json.data.count = 0;
     dateStart3 = new Date();
     channel3json.data.start = getTimestamp(timestampSet);
-    iter++;
     if (iter == max) {
         // Write to files
         var jsonString1A = JSON.stringify(channel1json.dataSet, null, 2);
@@ -137,6 +141,35 @@ var intervalID = setInterval(function () {
                 console.log('Successfully wrote file');
             }
         });
+        // Use the data to create and write to a CSV file
+        // 1) Create a CSV file and write in the headers/column names
+        fs.writeFileSync(file1csv, "Trending,Start,End,Count\n", function (err) {
+            if (err) {
+                console.log('Error writing file', err);
+            }
+            else {
+                console.log('Successfully wrote file');
+            }
+        });
+        // 2) Loop over dataSet and append each object as a common seperated list and insert that line into the file
+        for (var j = 0; j < channel1json.dataSet.dataset.length; j++) {
+            var line = "";
+            line += channel1json.dataSet.dataset[j].trending[0];
+            line += ",";
+            line += channel1json.dataSet.dataset[j].start;
+            line += ",";
+            line += channel1json.dataSet.dataset[j].end;
+            line += ",";
+            line += channel1json.dataSet.dataset[j].count;
+            fs.appendFileSync(file1csv, line + '\n', function (err) {
+                if (err) {
+                    console.log('Error writing file', err);
+                }
+                else {
+                    console.log('Successfully wrote file');
+                }
+            });
+        }
         fs.writeFile(file2, jsonString2A, function (err) {
             if (err) {
                 console.log('Error writing file', err);
@@ -145,6 +178,35 @@ var intervalID = setInterval(function () {
                 console.log('Successfully wrote file');
             }
         });
+        // Use the data to create and write to a CSV file
+        // 1) Create a CSV file and write in the headers/column names
+        fs.writeFileSync(file2csv, "Trending,Start,End,Count\n", function (err) {
+            if (err) {
+                console.log('Error writing file', err);
+            }
+            else {
+                console.log('Successfully wrote file');
+            }
+        });
+        // 2) Loop over dataSet and append each object as a common seperated list and insert that line into the file
+        for (var j = 0; j < channel2json.dataSet.dataset.length; j++) {
+            var line = "";
+            line += channel2json.dataSet.dataset[j].trending[0];
+            line += ",";
+            line += channel2json.dataSet.dataset[j].start;
+            line += ",";
+            line += channel2json.dataSet.dataset[j].end;
+            line += ",";
+            line += channel2json.dataSet.dataset[j].count;
+            fs.appendFileSync(file2csv, line + '\n', function (err) {
+                if (err) {
+                    console.log('Error writing file', err);
+                }
+                else {
+                    console.log('Successfully wrote file');
+                }
+            });
+        }
         fs.writeFile(file3, jsonString3A, function (err) {
             if (err) {
                 console.log('Error writing file', err);
@@ -153,6 +215,35 @@ var intervalID = setInterval(function () {
                 console.log('Successfully wrote file');
             }
         });
+        // Use the data to create and write to a CSV file
+        // 1) Create a CSV file and write in the headers/column names
+        fs.writeFileSync(file3csv, "Trending,Start,End,Count\n", function (err) {
+            if (err) {
+                console.log('Error writing file', err);
+            }
+            else {
+                console.log('Successfully wrote file');
+            }
+        });
+        // 2) Loop over dataSet and append each object as a common seperated list and insert that line into the file
+        for (var j = 0; j < channel3json.dataSet.dataset.length; j++) {
+            var line = "";
+            line += channel3json.dataSet.dataset[j].trending[0];
+            line += ",";
+            line += channel3json.dataSet.dataset[j].start;
+            line += ",";
+            line += channel3json.dataSet.dataset[j].end;
+            line += ",";
+            line += channel3json.dataSet.dataset[j].count;
+            fs.appendFileSync(file3csv, line + '\n', function (err) {
+                if (err) {
+                    console.log('Error writing file', err);
+                }
+                else {
+                    console.log('Successfully wrote file');
+                }
+            });
+        }
         // Convert the captured format to one that can be plotted and then write it to a file ...
         // ... to be used in the plotting step
         convertToPlot(channel1json.dataSet, channel1json.plotSet);
@@ -195,6 +286,7 @@ var intervalID = setInterval(function () {
         // Exit out of the interval function
         clearInterval(intervalID);
     }
+    iter++;
 }, delta * 60 * 1000);
 //*/
 //// STREAMING SECTION
@@ -284,9 +376,8 @@ function tweetJSON(topic, jsonobject) {
 /*
 var accounts = [
     50089932,  // [0] @blackBoxMod
-    25073877,  // [1] @realDonaldTrump
-    759251,    // [2] @cnn
-    2899773086 // [3] @Every3Minutes
+    759251,    // [1] @cnn
+    2899773086 // [2] @Every3Minutes
 ];
 let status = '#AddressClimateChange'
 var stream = T.stream('statuses/filter', { follow: accounts[1] });

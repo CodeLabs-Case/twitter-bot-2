@@ -15,6 +15,6 @@ $file = 'datavisualization/main.py'
 node bot.js $clas[0] $clas[1] $topics out-null
 
 # After all of the data has been stored, loop through all plot.json files and plot them 
-for($i = 1; $i -le $topics.length + 1; $i++){
+for($i = 1; $i -le $topics.length; $i++){
     python $file $i
 }

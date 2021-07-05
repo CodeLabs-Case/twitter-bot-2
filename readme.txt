@@ -3,8 +3,9 @@ BLACK BOX - TWITTER BOT - VERSION 2 (PARALLEL)
 
 
 // How To Use
-To run the program with a given set of topics, currently it is hardcoded to take in 3 topics and collect them in parallel and
-in order to change that you have to hardcode it in the source code.
+To run the program with a given set of topics, add those topics to the topics.txt file, with one topic per line.
+Currently it is hardcoded to take in 3 topics and collect them in parallel.
+In order to change that you have to hardcode it in the source code, which I hope to change if further iterations.
 
 1) Update the topics file, with one topic per line
 2) run ./shell <delta> <n>
